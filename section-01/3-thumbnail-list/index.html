@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+      crossorigin="anonymous">
+
+    <script src="https://fb.me/react-0.14.6.js"></script>
+    <script src="https://fb.me/react-dom-0.14.6.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+    </div>
+  </body>
+
+  <script type="text/jsx" charset="utf-8">
+    'use strict';
+    // define a raect component class
+    let Badge = React.createClass({
+      render() {
+        return <button className="btn btn-primary" type="button">
+          {this.props.title} <span className="badge">{this.props.number}</span>
+        </button>
+
+      }
+    });
+
+    let Thumbnail = React.createClass({
+      render() {
+        return <div className="col-sm-6 col-md-4">
+          <div className="thumbnail">
+            <img src={this.props.imageUrl}/>
+            <div className="caption">
+              <h3>{this.props.header}</h3>
+              <p>{this.props.description}</p>
+              <p>
+                <Badge title={this.props.title} number={this.props.number}/>
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    });
+
+    let ThumbnailList = React.createClass({
+      render() {
+        let list = this.props.thumbnailData.map((thumbnailProps) => {
+          return <Thumbnail {...thumbnailProps}/>
+        });
+        return <div>{list}</div>
+      }
+    });
+
+    let options = {
+      thumbnailData: [{
+        title: 'Inbox',
+        number: 32,
+        header: 'Learn React',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        imageUrl: 'http://formatjs.io/img/react.svg'
+      }, {
+        title: 'Show courses',
+        number: 12,
+        header: 'Learn Gulp',
+        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore`,
+        imageUrl: 'http://devstickers.com/assets/img/pro/jv81.png'
+      }]
+    };
+    // ask react to render this class
+    let element = React.createElement(ThumbnailList, options);
+
+    // when we ask react to render this class, we will tell it where to place the
+    // rendered element in the dom
+    ReactDOM.render(element, document.querySelector('.container'));
+  </script>
+</html>
